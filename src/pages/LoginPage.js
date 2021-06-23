@@ -1,6 +1,50 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import React, {useState} from "react";
+import {Link, useHistory} from "react-router-dom";
 export const LoginPage = () => {
+    let history = useHistory();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+
+    const onChangeEmail= event => {
+        setEmail(event.target.value);
+    };
+    const onChangePassword = event => {
+        setPassword(event.target.value);
+    };
+
+
+    const loginUserHandler = () =>{
+        const body = {
+            email,
+            password};
+        if( email.trim() !== '' && password.trim() !== '' ){
+
+                setErrorMessage('');
+                const requestOptions = {
+                    method: 'POST',
+                    headers: {"Content-type": "application/x-www-form-urlencoded; charset=UTF-8"},
+                    body: Object.entries(body).map(([k,v])=>{return k+'='+v}).join('&')
+                };
+                fetch(`${process.env.REACT_APP_SERVER_API_URL}/login`, requestOptions)
+                    .then((response) => {
+                        if(response.status === 500){
+                            setErrorMessage('Email или пароль не совпадает')
+                        }else if(response.status === 301){
+
+                            localStorage.setItem('userData', JSON.stringify(email))
+                            history.push("/");
+                        }
+                    })
+
+        } else{
+            setErrorMessage('Незаполнены поля')
+        }
+
+
+
+    }
     return (
         <>
             <section>
@@ -19,29 +63,36 @@ export const LoginPage = () => {
 
                             <h2>Вход</h2>
                             <p>Заполните поля для входа</p>
-                            <form action="/auth/doLogin" method="POST">
+                            <div>
                                 <div className="form-group">
                                     <label htmlFor="email">Почта: <sup>*</sup></label>
                                     <input type="text" name="email"
-                                           className="form-control form-control-lg <?= ($emailError) ? 'is-invalid' : '' ?>" />
+                                           className="form-control form-control-lg <?= ($emailError) ? 'is-invalid' : '' ?>"
+                                           value={email}
+                                           onChange={onChangeEmail}
+                                    />
                                 </div>
 
                                 <div className="form-group">
                                     <label htmlFor="name">Пароль: <sup>*</sup></label>
                                     <input type="password" name="password"
-                                           className="form-control form-control-lg <?= ($emailError) ? 'is-invalid' : '' ?>" />
+                                           className="form-control form-control-lg <?= ($emailError) ? 'is-invalid' : '' ?>"
+                                           value={password}
+                                           onChange={onChangePassword}
+                                    />
+                                    <span className="invalid-feedback">{errorMessage}</span>
                                 </div>
 
                                 <div className="row">
                                     <div className="col">
-                                        <input type="submit" value="Войти" className="btn btn-success btn-block" />
+                                        <button className="btn btn-success btn-block" onClick={()=> loginUserHandler()}>Войти</button>
                                     </div>
                                     <div className="col">
                                         <Link to="/register" className="btn btn-light btn-block">Нет аккаунта?
                                             Зарегистрируйтесь</Link>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
