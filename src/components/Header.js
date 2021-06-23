@@ -12,11 +12,9 @@ export const Header = () => {
             method: 'GET',
             headers: { 'Content-Type': 'application/json', },
         };
-        fetch("http://freelance.loc/categories", requestOptions)
+        fetch(`${process.env.REACT_APP_SERVER_API_URL}/categories`, requestOptions)
             .then(response => response.json())
             .then(data => setCategories(data))
-            console.log(categories)
-
 
     }, [])
 
