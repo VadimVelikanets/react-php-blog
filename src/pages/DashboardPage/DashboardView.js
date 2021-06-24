@@ -41,8 +41,8 @@ export const DashboardView = () => {
             {/*<?php if(Session::get('user')['permission'] == "Admin"): ?>*/}
             <td><Link to={`/posts/${item.id}`}
                    className="btn btn-dark">Просмотреть</Link></td>
-            <td><a href="<?= URL; ?>dashboard/edit/<?= $post->id; ?>"
-                   className="btn btn-primary">Изменить</a></td>
+            <td><Link to={`/posts/${item.id}`}
+                   className="btn btn-primary">Изменить</Link></td>
             <td><a href="#"
                    className="btn btn-danger"
                    onClick={() => onPostDelete(item.id)}

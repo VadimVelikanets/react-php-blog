@@ -1,2 +1,7 @@
 <?php
- $connect = mysqli_connect('localhost', 'root', '', 'blog-mvc');
+
+ $dbUser = 'root';
+ $dbPassword = '';
+ $dbName = 'blog-mvc';
+
+ $connect = mysqli_connect('localhost', $dbUser, $dbPassword, $dbName);

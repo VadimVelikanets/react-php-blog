@@ -42,9 +42,10 @@ class Posts
         }
 
     }
+
     public function getUserPosts($connect, $id)
     {
-       //die(var_dump($id));
+        //die(var_dump($id));
         $posts = mysqli_query($connect, "SELECT user.firstname, user.lastname, file.image, file.thumb, category.category_name, posts.*
                     FROM user
                     JOIN posts
@@ -53,15 +54,17 @@ class Posts
                     ON file.id = posts.file_id
                     JOIN category
                     ON category.id = posts.category_id
-                    WHERE user_id = '$id'");
+                    WHERE user.id = 256");
+
         $postsList = [];
         while ($post = mysqli_fetch_assoc($posts)) {
             $postsList[] = $post;
         }
 
-
+        die(var_dump($postsList));
         echo json_encode($postsList);
     }
+
     public function getCategories($connect)
     {
         $categories = mysqli_query($connect, "SELECT * FROM `category`");
@@ -141,6 +144,41 @@ class Posts
         ];
         http_response_code(201);
         echo json_encode($res);
+    }
+
+    public function addComment($connect, $data)
+    {
+        $userId = $data['user_id'];
+        $postId = $data['post_id'];
+        $commentContent = $data['comment_content'];
+
+
+        $comment = mysqli_query($connect, "INSERT INTO `comments` (`user_id`, `post_id`, `comment_content` ) VALUES ('$userId', '$postId',  '$commentContent')");
+        die(var_dump($comment));
+        $res = [
+            "status" => 'comment create',
+            "id" => mysqli_insert_id($connect)
+        ];
+        http_response_code(201);
+        echo json_encode($res);
+    }
+
+    public function getCommentsByPost($connect, $postId)
+    {
+        $comments = mysqli_query($connect, "SELECT user.firstname, user.lastname, comments.*
+                    FROM user
+                    JOIN comments
+                    ON user.id = comments.user_id
+                    JOIN posts
+                    ON posts.id = comments.post_id
+                    WHERE comments.post_id = $postId");
+        $commentList = [];
+        while ($comment = mysqli_fetch_assoc($comments)) {
+            $commentList[] = $comment;
+        }
+
+
+        echo json_encode($commentList);
     }
 }
 
