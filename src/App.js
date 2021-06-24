@@ -10,6 +10,8 @@ import {LoginPage} from "./pages/LoginPage";
 import {DashboardPage} from "./pages/DashboardPage/DashboardPage";
 import {Header} from "./components/Header";
 import {Footer} from "./components/Footer";
+import {Categories} from "./pages/Categories";
+import {Article} from "./pages/Article";
 
 function App() {
   return (
@@ -34,6 +36,12 @@ function App() {
                     </Route>
                     <Route path="/dashboard" >
                         <DashboardPage/>
+                    </Route>
+                    <Route path="/categories/:id" >
+                        <Categories/>
+                    </Route>
+                    <Route path="/posts/:id" >
+                        <Article/>
                     </Route>
                 </Switch>
             <Footer/>

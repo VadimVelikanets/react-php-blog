@@ -22,22 +22,12 @@ export const Header = () => {
     }, [])
 
     let catList = categories.map((item, index) =>
-        <a key={index} className="dropdown-item" href={`/category/showCategory/${item.id}`}>{item.category_name}</a>
+        <a key={index} className="dropdown-item" href={`/categories/${item.id}`}>{item.category_name}</a>
     )
 
     const styles = {
         borderRadius: '50%'
     }
-    // const CreateCat = () =>{
-    //     const body = { category_name: "test"};
-    //     const requestOptions = {
-    //         method: 'POST',
-    //         headers: {"Content-type": "application/x-www-form-urlencoded; charset=UTF-8"},
-    //         body: Object.entries(body).map(([k,v])=>{return k+'='+v}).join('&')
-    //     };
-    //     fetch(`${process.env.REACT_APP_SERVER_API_URL}/categories`, requestOptions)
-    //         .then(response => response.json())
-    // }
 
     const logout = () =>{
         localStorage.removeItem('userData')

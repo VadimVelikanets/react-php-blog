@@ -19,20 +19,26 @@ require 'models/User.php';
 
 $type = $_SERVER['PHP_SELF'];
 $params = explode('/', $type);
+
 $postId = $params[2] ?? "";
 
 $method = $_SERVER['REQUEST_METHOD'];
-//die(var_dump($_SERVER));
+//die(var_dump($params[1]));
 
 if ($method === 'GET') {
     if ($type === '/posts') {
         $PostObject->getPosts($connect);
-    } elseif (isset($postId) && $postId != '') {
+    } elseif ($params[1] === 'posts' && isset($postId) && $postId != '') {
         $PostObject->getPostItem($connect, $postId);
     }
     elseif ($type === '/categories') {
         $PostObject->getCategories($connect);
-    }else {
+    }
+    elseif ($params[1] === 'categories' &&  $postId != '' ) {
+        $PostObject->getCategoriesById($connect, $postId);
+    }
+
+    else {
         http_response_code(404);
     }
 
@@ -43,6 +49,9 @@ if ($method === 'GET') {
         $UserObject->registerUser($connect, $_POST);
     } elseif ($type === '/login') {
         $UserObject->loginUser($connect, $_POST);
+    }
+    elseif ($type === '/posts') {
+        $PostObject->addPost($connect);
     }
 } elseif($method === 'DELETE') {
     if ($type === '/posts') {

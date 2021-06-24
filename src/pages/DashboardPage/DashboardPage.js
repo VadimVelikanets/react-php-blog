@@ -2,6 +2,9 @@ import React from "react";
 import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 import {DashboardView} from "./DashboardView";
 import {DashboardAdd} from "./DashboardAdd";
+import {DashboardCategory} from "./DashboardCategory";
+import {DashboardUserPosts} from "./DashboardUserPosts";
+
 export const DashboardPage = () => {
     return (
         <>
@@ -25,11 +28,11 @@ export const DashboardPage = () => {
                             </li>
 
                             <li className="nav-item">
-                                <a className="nav-link " href="<?= URL ?>dashboard/allUserPosts"><span
-                                    data-feather="file-text"></span>Ваши посты</a>
+                                <Link className="nav-link " to="/dashboard/user-posts"><span
+                                    data-feather="file-text"></span>Ваши посты</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="dashboard/add"><span
+                                <Link  className="nav-link" to="dashboard/add"><span
                                     data-feather="file-text"></span>Добавить пост</Link>
                             </li>
 
@@ -43,8 +46,8 @@ export const DashboardPage = () => {
                         </h6>
                         <ul className="nav flex-column mb-2">
                             <li className="nav-item">
-                                <a className="nav-link" href="<?= URL ?>dashboard/category"><span
-                                    data-feather="file-text"></span>Добавить категорию</a>
+                                <Link className="nav-link" to="/dashboard/category"><span
+                                    data-feather="file-text"></span>Добавить категорию</Link>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="<?= URL ?>dashboard/allUsers"><span
@@ -62,6 +65,12 @@ export const DashboardPage = () => {
                     </Route>
                     <Route exact path="/dashboard/add" >
                         <DashboardAdd/>
+                    </Route>
+                    <Route exact path="/dashboard/category" >
+                        <DashboardCategory/>
+                    </Route>
+                    <Route exact path="/dashboard/user-posts" >
+                        <DashboardUserPosts/>
                     </Route>
                 </Switch>
 
