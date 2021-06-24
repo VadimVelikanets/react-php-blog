@@ -51,7 +51,9 @@ class User
                     'auth'
                 ];
                 http_response_code(301);
-                echo json_encode($res);
+                echo json_encode($user);
+
+
             } else {
                 $res = [
                     "status" => 'wrong password'
@@ -68,6 +70,21 @@ class User
             echo json_encode($res);
         }
 
+
+    }
+
+    public function getUsersById($connect, $id)
+    {
+        $user = mysqli_query($connect, "SELECT * FROM `user` WHERE `id` = '$id'");
+        if (!$user) {
+            $res = [
+                "status" => '404 Error! Post not found'
+            ];
+            echo json_encode($res);
+        } else {
+            $user = mysqli_fetch_assoc($user);
+            echo json_encode($user);
+        }
 
     }
 }

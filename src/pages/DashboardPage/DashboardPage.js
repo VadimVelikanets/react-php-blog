@@ -32,7 +32,7 @@ export const DashboardPage = () => {
                                     data-feather="file-text"></span>Ваши посты</Link>
                             </li>
                             <li className="nav-item">
-                                <Link  className="nav-link" to="dashboard/add"><span
+                                <Link  className="nav-link" to="/dashboard/add"><span
                                     data-feather="file-text"></span>Добавить пост</Link>
                             </li>
 

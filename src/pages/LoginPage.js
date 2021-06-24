@@ -29,14 +29,22 @@ export const LoginPage = () => {
                 };
                 fetch(`${process.env.REACT_APP_SERVER_API_URL}/login`, requestOptions)
                     .then((response) => {
+
                         if(response.status === 500){
                             setErrorMessage('Email или пароль не совпадает')
-                        }else if(response.status === 301){
-
-                            localStorage.setItem('userData', JSON.stringify(email))
-                            window.location.href = '/dashboard';
                         }
+
                     })
+                fetch(`${process.env.REACT_APP_SERVER_API_URL}/login`, requestOptions)
+                    .then(response => response.json())
+                    .then(data=>{
+                        data.password = ''
+                        console.log(data);
+                        localStorage.setItem('userData', JSON.stringify(data))
+                        window.location.href = '/dashboard';
+                    })
+
+
 
         } else{
             setErrorMessage('Незаполнены поля')

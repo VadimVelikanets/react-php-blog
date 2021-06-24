@@ -9,8 +9,14 @@ export const Header = () => {
     const [isMenuOpened, setMenuOpened] = useState(false);
     const [isCategoryOpened, setCategoryOpened] = useState(false);
     const [categories, setCategories] = useState([]);
+    const [userName, setUserName] = useState('');
 
     useEffect(() => {
+        if(localStorage.getItem("userData")){
+            setUserName(JSON.parse(localStorage.getItem("userData")).firstname)
+
+        }
+
         const requestOptions = {
             method: 'GET',
             headers: { 'Content-Type': 'application/json', },
@@ -80,7 +86,7 @@ export const Header = () => {
                                         <img
                                             src="https://icon-library.com/images/default-user-icon/default-user-icon-8.jpg"
                                             width="24" height="24" className="mr-2" alt="" style={styles} />
-                                        <div>Welcome </div>
+                                        <div>Welcome, {userName}</div>
                                     </Link>
                                 </li>
                                 <li className="nav-item">

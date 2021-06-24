@@ -1,4 +1,5 @@
 <?php
+
 class Posts
 {
     public function getPosts($connect)
@@ -103,20 +104,24 @@ class Posts
 
     }
 
-    public function addPost($connect, $data){
+    public function addPost($connect, $data)
+    {
         $header = $data['header'];
-        $content = $data['header'];
+        $content = $data['content'];
         $category_id = $data['category_id'];
         $user_id = $data['user_id'];
+        $file_id = $data['file_id'];
 
 
-            mysqli_query($connect, "INSERT INTO `posts` (`header`, `header`, `category_id`, `email`, `password`, `login_attempts`, `permission_id`, `file_id`)VALUES	(NULL, '$firstName', '$lastname', '$email', '$hash', 0, 1, NULL);");
-            $res = [
-                "status" => 'user create',
-                "id" => mysqli_insert_id($connect)
-            ];
-            http_response_code(201);
-            echo json_encode($res);
+        mysqli_query($connect, "INSERT INTO `posts` (`header`, `content`, `user_id`, `file_id`, `category_id`) VALUES ($header, $content, $user_id, $file_id, $category_id)");
+
+
+        $res = [
+            "status" => 'post create',
+            "id" => mysqli_insert_id($connect)
+        ];
+        http_response_code(201);
+        echo json_encode($res);
     }
 }
 

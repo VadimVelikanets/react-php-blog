@@ -27,7 +27,7 @@ export const Article = () => {
             </div>
 
             <div className="landscape-img">
-                <img src={post.image}alt=""/>
+                <img src='https://www.jervisbayelectrical.com.au/wp-content/uploads/2016/10/blog-post-img-4.jpg'
             </div>
 
             <p className="mt-5">{post.content}</p>

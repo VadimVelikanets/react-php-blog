@@ -37,7 +37,9 @@ if ($method === 'GET') {
     elseif ($params[1] === 'categories' &&  $postId != '' ) {
         $PostObject->getCategoriesById($connect, $postId);
     }
-
+    elseif ($params[1] === 'users' &&  $postId != '' ) {
+        $UserObject->getUsersById($connect, $postId);
+    }
     else {
         http_response_code(404);
     }
@@ -51,7 +53,7 @@ if ($method === 'GET') {
         $UserObject->loginUser($connect, $_POST);
     }
     elseif ($type === '/posts') {
-        $PostObject->addPost($connect);
+        $PostObject->addPost($connect, $_POST);
     }
 } elseif($method === 'DELETE') {
     if ($type === '/posts') {

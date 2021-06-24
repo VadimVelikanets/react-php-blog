@@ -8,6 +8,19 @@ export const DashboardAdd= () => {
     const [postText, setPostText] = useState('');
     const [categories, setCategories] = useState([]);
 
+    const [successMessage, setSuccessMessage] = useState('');
+
+    const onChangeTitle= event => {
+        setPostTitle(event.target.value);
+    };
+
+    const onChangeCategory= event => {
+        setCategotyId(event.target.value);
+    };
+
+    const onChangeText= event => {
+        setPostText(event.target.value);
+    };
     useEffect(() => {
         const requestOptions = {
             method: 'GET',
@@ -29,22 +42,19 @@ export const DashboardAdd= () => {
                     <h2>Добавить пост</h2>
 
                     <div className="card card-body bg-light mt-4 mb-5">
-                        {/*<div className="alert alert-danger alert-dismissible fade show" role="alert">*/}
-                        {/*    <?= $postErrMsg ?>*/}
-                        {/*    <button type="button" className="close" data-dismiss="alert" aria-label="Close">*/}
-                        {/*        <span aria-hidden="true">&times;</span>*/}
-                        {/*    </button>*/}
-                        {/*</div>*/}
+
 
                         <form action="<?php echo URL; ?>dashboard/doAdd" method="POST" encType="multipart/form-data">
                             <div className="form-group">
                                 <label htmlFor="title">Название: <sup>*</sup></label>
-                                <input type="text" name="header" className="form-control form-control-lg" value="" />
+                                <input type="text" name="header" className="form-control form-control-lg"
+                                       value={postTitle}
+                                       onChange={onChangeTitle} />
                             </div>
 
                             <div className="form-group">
                                 <label htmlFor="category">Выберите категорию: <sup>*</sup></label>
-                                <select className="form-control" name="category_id">
+                                <select className="form-control" name="category_id" onChange={onChangeCategory}>
                                     {optionList}
                                 </select>
                             </div>
@@ -63,7 +73,9 @@ export const DashboardAdd= () => {
                             <div className="form-group">
                                 <label htmlFor="body">Текст поста: <sup>*</sup></label>
                                 <textarea name="content" rows="15" id="post_text"
-                                          className="form-control form-control-lg">  </textarea>
+                                          className="form-control form-control-lg"
+                                          value={postText}
+                                          onChange={onChangeText}>  </textarea>
                             </div>
                             <input type="submit" className="btn btn-success" value="Submit" />
                         </form>

@@ -19,9 +19,9 @@ export const Categories = () => {
     }, [])
     let postList = posts.map((item, index) =>
         <div class="card">
-            <a href="/category/show/<?= $item->id; ?>">
-                <img class="card-img-top" src={`/${item.image}`} alt="Card image cap"/>
-            </a>
+            <Link to={`/posts/${item.id}`}>
+                <img class="card-img-top" src='https://www.jervisbayelectrical.com.au/wp-content/uploads/2016/10/blog-post-img-4.jpg' alt="Card image cap"/>
+            </Link>
             <div class="card-body">
 
                 <p class="card-text mb-0 text-muted"><small>{item.category_name}</small></p>
