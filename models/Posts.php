@@ -42,7 +42,26 @@ class Posts
         }
 
     }
+    public function getUserPosts($connect, $id)
+    {
+       //die(var_dump($id));
+        $posts = mysqli_query($connect, "SELECT user.firstname, user.lastname, file.image, file.thumb, category.category_name, posts.*
+                    FROM user
+                    JOIN posts
+                    ON user.id = posts.user_id
+                    JOIN file
+                    ON file.id = posts.file_id
+                    JOIN category
+                    ON category.id = posts.category_id
+                    WHERE user_id = '$id'");
+        $postsList = [];
+        while ($post = mysqli_fetch_assoc($posts)) {
+            $postsList[] = $post;
+        }
 
+
+        echo json_encode($postsList);
+    }
     public function getCategories($connect)
     {
         $categories = mysqli_query($connect, "SELECT * FROM `category`");
@@ -113,7 +132,7 @@ class Posts
         $file_id = $data['file_id'];
 
 
-        mysqli_query($connect, "INSERT INTO `posts` (`header`, `content`, `user_id`, `file_id`, `category_id`) VALUES ($header, $content, $user_id, $file_id, $category_id)");
+        mysqli_query($connect, "INSERT INTO `posts` (`header`, `content`, `user_id`, `file_id`, `category_id`) VALUES ('$header', '$content', '$user_id', '$file_id', '$category_id')");
 
 
         $res = [

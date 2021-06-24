@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {useHistory} from "react-router-dom";
+import {useHistory, Link} from "react-router-dom";
 
 export const DashboardView = () => {
 
@@ -39,8 +39,8 @@ export const DashboardView = () => {
             <td>{item.category_name}</td>
             <td>{item.firstname}</td>
             {/*<?php if(Session::get('user')['permission'] == "Admin"): ?>*/}
-            <td><a href="<?= URL; ?>category/show/<?= $post->id; ?>"
-                   className="btn btn-dark">Просмотреть</a></td>
+            <td><Link to={`/posts/${item.id}`}
+                   className="btn btn-dark">Просмотреть</Link></td>
             <td><a href="<?= URL; ?>dashboard/edit/<?= $post->id; ?>"
                    className="btn btn-primary">Изменить</a></td>
             <td><a href="#"

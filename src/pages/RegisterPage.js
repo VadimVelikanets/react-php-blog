@@ -62,8 +62,6 @@ export const RegisterPage = () => {
                 setErrorMessage('Незаполнены все поля')
             }
 
-
-
     }
 
     return (

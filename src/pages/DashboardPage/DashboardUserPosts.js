@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from "react";
-import {useHistory} from "react-router-dom";
+import {useHistory, Link} from "react-router-dom";
 
 export const DashboardUserPosts = () => {
-
+    const userId = JSON.parse(localStorage.getItem("userData")).id;
     const [posts, setPosts] = useState([]);
     const getPosts = () => {
         const requestOptions = {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         };
-        fetch(`${process.env.REACT_APP_SERVER_API_URL}/posts`, requestOptions)
+        fetch(`${process.env.REACT_APP_SERVER_API_URL}/posts/user/${userId}`, requestOptions)
             .then(response => response.json())
             .then(data => setPosts(data))
     }
@@ -39,8 +39,8 @@ export const DashboardUserPosts = () => {
             <td>{item.category_name}</td>
             <td>{item.firstname}</td>
             {/*<?php if(Session::get('user')['permission'] == "Admin"): ?>*/}
-            <td><a href="<?= URL; ?>category/show/<?= $post->id; ?>"
-                   className="btn btn-dark">Просмотреть</a></td>
+            <td><Link to={`/posts/${item.id}`}
+                      className="btn btn-dark">Просмотреть</Link></td>
             <td><a href="<?= URL; ?>dashboard/edit/<?= $post->id; ?>"
                    className="btn btn-primary">Изменить</a></td>
             <td><a href="#"
@@ -80,7 +80,10 @@ export const DashboardUserPosts = () => {
                             </thead>
                             <tbody>
 
-                            {postList && postList}
+                            {postList.length > 0 ?
+                                postList
+                                : <div>У вас пока нет постов</div>
+                            }
                             </tbody>
                         </table>
                     </div>

@@ -72,7 +72,17 @@ class User
 
 
     }
+    public function getUsers($connect)
+    {
+        $posts = mysqli_query($connect, "SELECT * FROM user");
+        $postsList = [];
+        while ($post = mysqli_fetch_assoc($posts)) {
+            $postsList[] = $post;
+        }
 
+
+        echo json_encode($postsList);
+    }
     public function getUsersById($connect, $id)
     {
         $user = mysqli_query($connect, "SELECT * FROM `user` WHERE `id` = '$id'");
@@ -86,6 +96,41 @@ class User
             echo json_encode($user);
         }
 
+    }
+    public function updateUser($connect, $data){
+        $firstName = $data['firstname'];
+        $lastname= $data['lastname'];
+        $email = $data['email'];
+        $password = $data['password'];
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+        $id = $data['userId'];
+        //die(var_dump($data));
+        $sql = "UPDATE `user` SET `firstname` = '$firstName', `lastname` = '$lastname', `email` = '$email', `password` = '$hash' WHERE `id` = '$id'";
+        $user = mysqli_query($connect, $sql);
+        $user = mysqli_fetch_assoc($user);
+
+        $res = [
+            "status" => 'user create',
+            "id" => mysqli_insert_id($connect)
+        ];
+        http_response_code(201);
+        $updatedUser = mysqli_query($connect,"SELECT *  FROM `user` WHERE `email`='$email'");
+        $updatedUser = mysqli_fetch_assoc($updatedUser);
+        echo json_encode($updatedUser);
+
+
+    }
+
+    public function getUserPermissions($connect)
+    {
+        $posts = mysqli_query($connect, "SELECT * FROM user");
+        $postsList = [];
+        while ($post = mysqli_fetch_assoc($posts)) {
+            $postsList[] = $post;
+        }
+
+
+        echo json_encode($postsList);
     }
 }
 

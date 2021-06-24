@@ -1,11 +1,22 @@
-import React from "react";
-import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+import React, {useEffect} from "react";
+import {BrowserRouter as Router, Switch, Route, Link, Redirect} from "react-router-dom";
 import {DashboardView} from "./DashboardView";
 import {DashboardAdd} from "./DashboardAdd";
 import {DashboardCategory} from "./DashboardCategory";
 import {DashboardUserPosts} from "./DashboardUserPosts";
-
+import {DashboardEditProfile} from "./DashboardEditProfile";
+import {DashboardUsers} from "./DashboardUsers";
 export const DashboardPage = () => {
+
+
+    useEffect(() => {
+        const userData = JSON.parse(localStorage.getItem("userData"));
+        console.log(userData)
+        if(!userData){
+            window.location.href = '/'
+        }
+    }, [])
+
     return (
         <>
             <div className="row">
@@ -19,12 +30,12 @@ export const DashboardPage = () => {
                         </h6>
                         <ul className="nav flex-column mb-2">
                             <li className="nav-item">
-                                <a className="nav-link" href="<?= URL ?>dashboard/editProfile"><span
-                                    data-feather="file-text"></span>Изменить профиль</a>
+                                <Link className="nav-link" to="/dashboard/edit-profile"><span
+                                    data-feather="file-text"></span>Изменить профиль</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link " href="<?= URL ?>dashboard/view"><span
-                                    data-feather="file-text"></span>Просмотреть посты</a>
+                                <Link className="nav-link " to="/dashboard"><span
+                                    data-feather="file-text"></span>Просмотреть посты</Link>
                             </li>
 
                             <li className="nav-item">
@@ -50,8 +61,8 @@ export const DashboardPage = () => {
                                     data-feather="file-text"></span>Добавить категорию</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="<?= URL ?>dashboard/allUsers"><span
-                                    data-feather="file-text"></span>Управления пользователями</a>
+                                <Link className="nav-link" to="/dashboard/users"><span
+                                    data-feather="file-text"></span>Управления пользователями</Link>
                             </li>
                         </ul>
 
@@ -69,8 +80,14 @@ export const DashboardPage = () => {
                     <Route exact path="/dashboard/category" >
                         <DashboardCategory/>
                     </Route>
+                    <Route exact path="/dashboard/edit-profile" >
+                        <DashboardEditProfile/>
+                    </Route>
                     <Route exact path="/dashboard/user-posts" >
                         <DashboardUserPosts/>
+                    </Route>
+                    <Route exact path="/dashboard/users" >
+                        <DashboardUsers/>
                     </Route>
                 </Switch>
 
