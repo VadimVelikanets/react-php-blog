@@ -7,7 +7,7 @@ import {AboutPage} from "./pages/AboutPage";
 import {ContactPage} from "./pages/ContactPage";
 import {RegisterPage} from "./pages/RegisterPage";
 import {LoginPage} from "./pages/LoginPage";
-
+import {DashboardPage} from "./pages/DashboardPage/DashboardPage";
 import {Header} from "./components/Header";
 import {Footer} from "./components/Footer";
 
@@ -31,6 +31,9 @@ function App() {
                     </Route>
                     <Route path="/login" >
                         <LoginPage/>
+                    </Route>
+                    <Route path="/dashboard" >
+                        <DashboardPage/>
                     </Route>
                 </Switch>
             <Footer/>

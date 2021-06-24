@@ -24,6 +24,10 @@ export const Header = () => {
     let catList = categories.map((item, index) =>
         <a key={index} className="dropdown-item" href={`/category/showCategory/${item.id}`}>{item.category_name}</a>
     )
+
+    const styles = {
+        borderRadius: '50%'
+    }
     // const CreateCat = () =>{
     //     const body = { category_name: "test"};
     //     const requestOptions = {
@@ -42,7 +46,7 @@ export const Header = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div className="container">
-                <Link className="navbar-brand" exact to="/">Блох {userData && userData}</Link>
+                <Link className="navbar-brand" exact to="/">Блох </Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
                         aria-label="Toggle navigation"
@@ -84,8 +88,8 @@ export const Header = () => {
                                     <Link className="nav-link d-flex <?= (Session::get('controller_name') == 'Dashboard') ? 'active' : '' ?>"
                                        to="/dashboard">
                                         <img
-                                            src="<?= (empty(Session::get('user')['image'])) ? DEFAULT_IMG : URL . Session::get('user')['image'] ?>"
-                                            width="24" height="24" className="mr-2" alt="" />
+                                            src="https://icon-library.com/images/default-user-icon/default-user-icon-8.jpg"
+                                            width="24" height="24" className="mr-2" alt="" style={styles} />
                                         <div>Welcome </div>
                                     </Link>
                                 </li>

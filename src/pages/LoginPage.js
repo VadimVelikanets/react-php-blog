@@ -34,7 +34,7 @@ export const LoginPage = () => {
                         }else if(response.status === 301){
 
                             localStorage.setItem('userData', JSON.stringify(email))
-                            history.push("/");
+                            window.location.href = '/dashboard';
                         }
                     })
 
@@ -47,7 +47,10 @@ export const LoginPage = () => {
     }
     return (
         <>
-            <section>
+
+
+
+                <section>
                 <div className="row">
                     <div className="col-md-8 mx-auto">
                         <div className="card card-body bg-light mt-5">

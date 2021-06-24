@@ -1,9 +1,16 @@
 <?php
 
-header('Content-type: json/application');
-header("Access-Control-Request-Method: GET, POST");
-header("Access-Control-Allow-Origin: http://localhost:3000");
-header('Access-Control-Allow-Headers: accept, origin, content-type');
+
+
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: POST, DELETE, OPTIONS");
+header("Access-Control-Max-Age: 3600");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    return 0;
+}
 
 require 'connect.php';
 require 'models/Posts.php';
@@ -36,5 +43,12 @@ if ($method === 'GET') {
         $UserObject->registerUser($connect, $_POST);
     } elseif ($type === '/login') {
         $UserObject->loginUser($connect, $_POST);
+    }
+} elseif($method === 'DELETE') {
+    if ($type === '/posts') {
+
+    }
+    elseif (isset($postId) && $postId != '') {
+        $PostObject->deletePostItem($connect, $postId);
     }
 }
